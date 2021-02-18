@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		B2CF0B1025DD80B500F57FE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CF0B0F25DD80B500F57FE4 /* Preview Assets.xcassets */; };
 		B2CF0B1C25DD80B500F57FE4 /* RecoilDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B1B25DD80B500F57FE4 /* RecoilDemoTests.swift */; };
 		B2CF0B2725DD80B500F57FE4 /* RecoilDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B2625DD80B500F57FE4 /* RecoilDemoUITests.swift */; };
+		B2CF0B3D25DD815200F57FE4 /* Recoil in Frameworks */ = {isa = PBXBuildFile; productRef = B2CF0B3C25DD815200F57FE4 /* Recoil */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		B2CF0B2225DD80B500F57FE4 /* RecoilDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecoilDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF0B2625DD80B500F57FE4 /* RecoilDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoilDemoUITests.swift; sourceTree = "<group>"; };
 		B2CF0B2825DD80B500F57FE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2CF0B3725DD814600F57FE4 /* Recoil */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Recoil; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2CF0B3D25DD815200F57FE4 /* Recoil in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,10 +79,12 @@
 		B2CF0AFC25DD80B400F57FE4 = {
 			isa = PBXGroup;
 			children = (
+				B2CF0B3725DD814600F57FE4 /* Recoil */,
 				B2CF0B0725DD80B400F57FE4 /* RecoilDemo */,
 				B2CF0B1A25DD80B500F57FE4 /* RecoilDemoTests */,
 				B2CF0B2525DD80B500F57FE4 /* RecoilDemoUITests */,
 				B2CF0B0625DD80B400F57FE4 /* Products */,
+				B2CF0B3B25DD815200F57FE4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +137,13 @@
 			path = RecoilDemoUITests;
 			sourceTree = "<group>";
 		};
+		B2CF0B3B25DD815200F57FE4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,6 +160,9 @@
 			dependencies = (
 			);
 			name = RecoilDemo;
+			packageProductDependencies = (
+				B2CF0B3C25DD815200F57FE4 /* Recoil */,
+			);
 			productName = RecoilDemo;
 			productReference = B2CF0B0525DD80B400F57FE4 /* RecoilDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -585,6 +600,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B2CF0B3C25DD815200F57FE4 /* Recoil */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Recoil;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B2CF0AFD25DD80B400F57FE4 /* Project object */;
 }
