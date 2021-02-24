@@ -134,3 +134,17 @@ struct Book {
     let name: String
     let author: String
 }
+
+final class ObserverTests: XCTestCase {
+    func test() {
+        let store = Store()
+        
+        store.observe { get in
+            print("->", get(BookKeepingApp.Search.query))
+        }
+        
+        store[BookKeepingApp.Search.queryInput] = "test"
+        store[BookKeepingApp.Search.minLength] = 5
+        store[BookKeepingApp.Search.queryInput] = "testing"
+    }
+}

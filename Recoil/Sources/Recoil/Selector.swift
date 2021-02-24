@@ -1,5 +1,11 @@
+enum ReadContext {
+    case state(Key)
+    case observer(Store.ObservationContext)
+    case none
+}
+
 struct Get {
-    let reader: Key
+    let reader: ReadContext
     var store: Store
     
     func callAsFunction<T>(_ atom: Atom<T>) -> T {
