@@ -1,8 +1,25 @@
-class Store {
-    private var dependencies: [Key: Set<Key>] = [:]
-    private var state: [Key: Any] = [:]
+public extension Store {
+    subscript<T>(_ atom: Atom<T>) -> T {
+        get { self[atom, .global] }
+        set { self[atom, .global] = newValue }
+    }
     
-    subscript<T>(_ atom: Atom<T>, reader: ReadContext = .none) -> T {
+    subscript<T>(_ derived: Derived<T>) -> T {
+        get { self[derived, .global] }
+    }
+}
+
+public class Store {
+    public init() {}
+    
+    private var dependencies: [Key: Set<Key>] = [:]
+    private var state: [Key: Any] = [:] {
+        didSet {
+            print("Updated to", state)
+        }
+    }
+    
+    subscript<T>(_ atom: Atom<T>, reader: ReadContext = .global) -> T {
         get {
             link(key: atom.key, to: reader)
             
@@ -20,12 +37,11 @@ class Store {
             invalidate(key: atom.key)
         }
     }
-    
+        
     func link(key: Key, to context: ReadContext) {
         switch context {
-            case .observer(let context): observerDependencies[key, default: []].insert(context)
-            case .state(let context): dependencies[key, default: []].insert(context)
-            case .none: break
+            case .derived(let context): dependencies[key, default: []].insert(context)
+            case .global: break
         }
     }
     
@@ -39,72 +55,59 @@ class Store {
             dependencies[key] = []
         }
         
-        for observer in observerDependencies[key, default: []] {
-            notify(context: observer)
+        for container in observations[key, default: []] {
+            container.observation?.willChange()
         }
     }
     
-    subscript<T>(_ selector: Selector<T>, reader: ReadContext = .none) -> T {
+    subscript<T>(_ selector: Derived<T>, reader: ReadContext = .global) -> T {
         link(key: selector.key, to: reader)
         
         if let value = state[selector.key] as? T {
             return value
         }
         
-        let get = Get(reader: .state(selector.key), store: self)
-        let initial = selector.getter(get)
+        let reader = Reader(context: .derived(selector.key), store: self)
+        let initial = selector.initial(reader)
         state[selector.key] = initial
         
         return initial
     }
     
-    subscript<Id, T>(id: Id, from family: Family<Id, T>, reader: ReadContext = .none) -> T {
-        get {
-            let atom = Atom(key: family.key(id)) {
-                family.initial(id)
-            }
-            
-            return self[atom, reader]
-        }
-        set {
-            let atom = Atom(key: family.key(id)) {
-                family.initial(id)
-            }
-            
-            self[atom, reader] = newValue
+    public class ObservationContainer {
+        weak var observation: Observation?
+        
+        init(observation: Observation) {
+            self.observation = observation
         }
     }
     
-    private var observerDependencies: [Key: Set<ObservationContext>] = [:]
-    
-    class ObservationContext: Hashable {
-        static func == (lhs: Store.ObservationContext, rhs: Store.ObservationContext) -> Bool {
-            ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
-        }
-        
-        init(observer: @escaping (Get) -> Void) {
-            self.observer = observer
-        }
-        
-        let observer: (Get) -> Void
-        
-        func hash(into hasher: inout Hasher) {
-            ObjectIdentifier(self).hash(into: &hasher)
+    public class Observation {
+        let willChange: () -> ()
+        init(willChange: @escaping () -> ()) {
+            self.willChange = willChange
         }
     }
     
-    func observe(observer: @escaping (Get) -> Void) {
-        let context = ObservationContext(observer: observer)
-        notify(context: context)
+    private var observations: [Key: [ObservationContainer]] = [:]
+    
+    public func observe(_ key: Key, willChange: @escaping () -> ()) -> Observation {
+        let observation = Observation(willChange: willChange)
+        let container = ObservationContainer(observation: observation)
+        observations[key, default: []].append(container)
+        
+        return observation
     }
     
-    func notify(context: ObservationContext) {
-        // TODO: Bidirectional link
-        for key in observerDependencies.keys {
-            observerDependencies[key]?.remove(context)
-        }
-        
-        let get = Get(reader: .observer(context), store: self)
-        context.observer(get)
+    public func observe<T>(_ atom: Atom<T>, willChange: @escaping () -> ()) -> Observation {
+        observe(atom.key, willChange: willChange)
+    }
+    
+    public func observe<T>(_ derived: Derived<T>, willChange: @escaping () -> ()) -> Observation {
+        observe(derived.key, willChange: willChange)
+    }
+    
+    public func call(_ action: Action) {
+        action.execute(self)
     }
 }
