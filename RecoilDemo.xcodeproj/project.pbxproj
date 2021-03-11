@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B27F35B025F2A65E009BF26B /* RecoilRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F35AF25F2A65E009BF26B /* RecoilRootView.swift */; };
 		B27F35BB25F2A87A009BF26B /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F35BA25F2A87A009BF26B /* State.swift */; };
-		B27F35C525F2D6B8009BF26B /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F35C425F2D6B8009BF26B /* Wrappers.swift */; };
-		B27F35CD25F37A23009BF26B /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F35CC25F37A23009BF26B /* Graph.swift */; };
-		B27F35D225F37A70009BF26B /* RecoilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F35D125F37A70009BF26B /* RecoilView.swift */; };
+		B27F35C525F2D6B8009BF26B /* Recoil+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F35C425F2D6B8009BF26B /* Recoil+SwiftUI.swift */; };
 		B2CF0B0925DD80B400F57FE4 /* RecoilDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B0825DD80B400F57FE4 /* RecoilDemoApp.swift */; };
-		B2CF0B0B25DD80B400F57FE4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B0A25DD80B400F57FE4 /* ContentView.swift */; };
+		B2CF0B0B25DD80B400F57FE4 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B0A25DD80B400F57FE4 /* LibraryView.swift */; };
 		B2CF0B0D25DD80B500F57FE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CF0B0C25DD80B500F57FE4 /* Assets.xcassets */; };
 		B2CF0B1025DD80B500F57FE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CF0B0F25DD80B500F57FE4 /* Preview Assets.xcassets */; };
 		B2CF0B1C25DD80B500F57FE4 /* RecoilDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B1B25DD80B500F57FE4 /* RecoilDemoTests.swift */; };
@@ -39,14 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B27F35AF25F2A65E009BF26B /* RecoilRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoilRootView.swift; sourceTree = "<group>"; };
 		B27F35BA25F2A87A009BF26B /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		B27F35C425F2D6B8009BF26B /* Wrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
-		B27F35CC25F37A23009BF26B /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
-		B27F35D125F37A70009BF26B /* RecoilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoilView.swift; sourceTree = "<group>"; };
+		B27F35C425F2D6B8009BF26B /* Recoil+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recoil+SwiftUI.swift"; sourceTree = "<group>"; };
 		B2CF0B0525DD80B400F57FE4 /* RecoilDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecoilDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF0B0825DD80B400F57FE4 /* RecoilDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoilDemoApp.swift; sourceTree = "<group>"; };
-		B2CF0B0A25DD80B400F57FE4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B2CF0B0A25DD80B400F57FE4 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		B2CF0B0C25DD80B500F57FE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2CF0B0F25DD80B500F57FE4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B2CF0B1125DD80B500F57FE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,17 +80,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B27F35AE25F2A652009BF26B /* Recoil */ = {
-			isa = PBXGroup;
-			children = (
-				B27F35AF25F2A65E009BF26B /* RecoilRootView.swift */,
-				B27F35C425F2D6B8009BF26B /* Wrappers.swift */,
-				B27F35CC25F37A23009BF26B /* Graph.swift */,
-				B27F35D125F37A70009BF26B /* RecoilView.swift */,
-			);
-			path = Recoil;
-			sourceTree = "<group>";
-		};
 		B2CF0AFC25DD80B400F57FE4 = {
 			isa = PBXGroup;
 			children = (
@@ -122,14 +105,14 @@
 		B2CF0B0725DD80B400F57FE4 /* RecoilDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B27F35BA25F2A87A009BF26B /* State.swift */,
+				B27F35C425F2D6B8009BF26B /* Recoil+SwiftUI.swift */,
 				B2CF0B0825DD80B400F57FE4 /* RecoilDemoApp.swift */,
-				B27F35AE25F2A652009BF26B /* Recoil */,
-				B2CF0B0A25DD80B400F57FE4 /* ContentView.swift */,
+				B2CF0B0A25DD80B400F57FE4 /* LibraryView.swift */,
 				B2CF0B0C25DD80B500F57FE4 /* Assets.xcassets */,
 				B2CF0B1125DD80B500F57FE4 /* Info.plist */,
 				B2CF0B1225DD80B500F57FE4 /* RecoilDemo.entitlements */,
 				B2CF0B0E25DD80B500F57FE4 /* Preview Content */,
-				B27F35BA25F2A87A009BF26B /* State.swift */,
 			);
 			path = RecoilDemo;
 			sourceTree = "<group>";
@@ -299,12 +282,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B27F35D225F37A70009BF26B /* RecoilView.swift in Sources */,
-				B27F35CD25F37A23009BF26B /* Graph.swift in Sources */,
-				B2CF0B0B25DD80B400F57FE4 /* ContentView.swift in Sources */,
-				B27F35C525F2D6B8009BF26B /* Wrappers.swift in Sources */,
+				B2CF0B0B25DD80B400F57FE4 /* LibraryView.swift in Sources */,
+				B27F35C525F2D6B8009BF26B /* Recoil+SwiftUI.swift in Sources */,
 				B2CF0B0925DD80B400F57FE4 /* RecoilDemoApp.swift in Sources */,
-				B27F35B025F2A65E009BF26B /* RecoilRootView.swift in Sources */,
 				B27F35BB25F2A87A009BF26B /* State.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

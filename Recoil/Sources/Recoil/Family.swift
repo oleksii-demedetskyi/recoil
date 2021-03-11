@@ -1,15 +1,18 @@
-public struct Family<Id: Hashable, T> {
-    public init(_ key: Key = .title(#function), initial: @escaping (Id) -> T) {
-        self.key = key
-        self.initial = initial
+public protocol FamilyProtocol {
+    associatedtype T: Codable
+    associatedtype Id: Hashable
+    static func initial(id: Id) -> T
+}
+
+extension Value {
+    public init<F: FamilyProtocol>(_ family: F.Type, id: F.Id) where F.T == T {
+        key = .family(type: String(reflecting: family), id: id)
+        initial = { _ in F.initial(id: id) }
     }
-    
-    let key: Key
-    let initial: (Id) -> T
-    
-    public subscript(_ id: Id) -> Atom<T> {
-        Atom(key: .child(family: key, id: id)) {
-            initial(id)
-        }
+}
+
+extension FamilyProtocol {
+    public static subscript(_ id: Id) -> Value<T> {
+        Value(self, id: id)
     }
 }

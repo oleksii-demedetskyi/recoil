@@ -1,113 +1,164 @@
-public extension Store {
-    subscript<T>(_ atom: Atom<T>) -> T {
-        get { self[atom, .global] }
-        set { self[atom, .global] = newValue }
-    }
-    
-    subscript<T>(_ derived: Derived<T>) -> T {
-        get { self[derived, .global] }
-    }
+
+
+enum ReadContext {
+    case derived(Key)
+    case observation(Observation)
+    case global
 }
 
 public class Store {
     public init() {}
     
-    private var dependencies: [Key: Set<Key>] = [:]
-    private var state: [Key: Any] = [:] {
+    private var dependencies: [Key: Set<Key>] = [:] {
         didSet {
-            print("Updated to", state)
-        }
-    }
-    
-    subscript<T>(_ atom: Atom<T>, reader: ReadContext = .global) -> T {
-        get {
-            link(key: atom.key, to: reader)
-            
-            if let value = state[atom.key] as? T {
-                return value
-            }
-            
-            let initial = atom.initial()
-            state[atom.key] = initial
-            return initial
+            traceDependencies()
         }
         
-        set {
-            state[atom.key] = newValue
-            invalidate(key: atom.key)
+    }
+    private var observers: [Key: Set<Observation>] = [:] {
+        didSet {
+            traceObservers()
         }
+    }
+    private var state: [Key: Any] = [:]
+    
+    func read<T>(_ container: Value<T>, from context: ReadContext) -> T {
+        link(key: container.key, to: context)
+        
+        if let value = state[container.key] as? T {
+            return value
+        }
+        
+        let reader = ReadableState(context: .derived(container.key), store: self)
+        let initial = container.initial(reader)
+        state[container.key] = initial
+        return initial
+    }
+    
+    func write<T>(value: T, to container: Value<T>, in context: ReadContext) {
+        state[container.key] = value
+        invalidate(key: container.key, in: &dependencies)
+        eraseInvalidatedContexts()
     }
         
     func link(key: Key, to context: ReadContext) {
         switch context {
             case .derived(let context): dependencies[key, default: []].insert(context)
+            case .observation(let context):
+                context.ready() // Marks context as valid and ready to accept changes
+                observers[key, default: []].insert(context)
             case .global: break
         }
     }
     
-    func invalidate(key: Key) {
+    func invalidate(key: Key, in dependencies: inout [Key: Set<Key>]) {
+        for upstream in dependencies.keys {
+            dependencies[upstream]?.remove(key)
+        }
+        
         for key in dependencies[key, default: []] {
             state[key] = nil
-            invalidate(key: key)
+            invalidate(key: key, in: &dependencies)
         }
         
         if dependencies.keys.contains(key) {
             dependencies[key] = []
         }
         
-        for container in observations[key, default: []] {
-            container.observation?.willChange()
+        for (key, deps) in dependencies {
+            if deps.isEmpty {
+                dependencies[key] = nil
+            }
+        }
+        
+        for context in observers[key, default: []] {
+            context.invalidateIfNeeded()
         }
     }
     
-    subscript<T>(_ selector: Derived<T>, reader: ReadContext = .global) -> T {
-        link(key: selector.key, to: reader)
-        
-        if let value = state[selector.key] as? T {
-            return value
-        }
-        
-        let reader = Reader(context: .derived(selector.key), store: self)
-        let initial = selector.initial(reader)
-        state[selector.key] = initial
-        
-        return initial
-    }
-    
-    public class ObservationContainer {
-        weak var observation: Observation?
-        
-        init(observation: Observation) {
-            self.observation = observation
+    func eraseInvalidatedContexts() {
+        for (key, value) in observers {
+            observers[key] = value.filter { context in context.invalidated }
         }
     }
+}
+
+public class Observation {
+    private(set) var invalidated: Bool = false
+    private let invalidate: () -> ()
+    public init(invalidate: @escaping () -> ()) {
+        self.invalidate = invalidate
+    }
     
-    public class Observation {
-        let willChange: () -> ()
-        init(willChange: @escaping () -> ()) {
-            self.willChange = willChange
+    func invalidateIfNeeded() {
+        guard invalidated == false else { return }
+        self.invalidated = true
+        self.invalidate()
+    }
+    
+    func ready() {
+        invalidated = false
+    }
+    
+    var name: String?
+}
+
+extension Observation: Hashable {
+    public static func == (lhs: Observation, rhs: Observation) -> Bool {
+        lhs === rhs
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        ObjectIdentifier(self).hash(into: &hasher)
+    }
+    
+    public func tag(_ name: String) -> Self {
+        self.name = name
+        return self
+    }
+}
+
+extension Store {
+    
+    public func observe(invalidate: @escaping () -> ()) -> Observation {
+        Observation(invalidate: invalidate)
+    }
+    
+    public func read<T>(_ container: Value<T>, from context: Observation) -> T {
+        read(container, from: .observation(context))
+    }
+    
+    public func write<T>(value: T, to container: Value<T>, in context: Observation) {
+        write(value: value, to: container, in: .observation(context))
+    }
+}
+
+extension Store {
+    func traceDependencies() {
+        if dependencies.isEmpty { return }
+        //debugPrint(dependencies)
+        print("Dependencies graph")
+        for key in dependencies.keys {
+            print("| \(key) ->")
+            for value in dependencies[key, default: []] {
+                print("|     \(value)")
+            }
         }
+        print("----")
+        print("")
     }
     
-    private var observations: [Key: [ObservationContainer]] = [:]
-    
-    public func observe(_ key: Key, willChange: @escaping () -> ()) -> Observation {
-        let observation = Observation(willChange: willChange)
-        let container = ObservationContainer(observation: observation)
-        observations[key, default: []].append(container)
+    func traceObservers() {
+        if observers.isEmpty { return }
         
-        return observation
-    }
-    
-    public func observe<T>(_ atom: Atom<T>, willChange: @escaping () -> ()) -> Observation {
-        observe(atom.key, willChange: willChange)
-    }
-    
-    public func observe<T>(_ derived: Derived<T>, willChange: @escaping () -> ()) -> Observation {
-        observe(derived.key, willChange: willChange)
-    }
-    
-    public func call(_ action: Action) {
-        action.execute(self)
+        print("Observers graph")
+        for key in observers.keys {
+            print("| \(key) ->")
+            for value in observers[key, default: []] {
+                print("|     \(value.name ?? "<unknown")")
+            }
+        }
+        print("----")
+        print("")
     }
 }
