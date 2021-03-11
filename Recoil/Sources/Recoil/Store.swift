@@ -11,16 +11,20 @@ public class Store {
     
     private var dependencies: [Key: Set<Key>] = [:] {
         didSet {
-            traceDependencies()
+            //traceDependencies()
         }
         
     }
     private var observers: [Key: Set<Observation>] = [:] {
         didSet {
-            traceObservers()
+            //traceObservers()
         }
     }
-    private var state: [Key: Any] = [:]
+    private var state: [Key: Any] = [:] {
+        didSet {
+            traceState()
+        }
+    }
     
     func read<T>(_ container: Value<T>, from context: ReadContext) -> T {
         link(key: container.key, to: context)
@@ -157,6 +161,15 @@ extension Store {
             for value in observers[key, default: []] {
                 print("|     \(value.name ?? "<unknown")")
             }
+        }
+        print("----")
+        print("")
+    }
+    
+    func traceState() {
+        print("State graph")
+        for (key, value) in state {
+            print("| \(key) -> \(value)")
         }
         print("----")
         print("")
