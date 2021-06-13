@@ -1,5 +1,5 @@
 import SwiftUI
-import Recoil
+import Autocore
 
 struct LibraryState: DynamicProperty {
     struct Book: Codable {
