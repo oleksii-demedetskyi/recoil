@@ -8,14 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		B27F35BB25F2A87A009BF26B /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F35BA25F2A87A009BF26B /* State.swift */; };
-		B27F35C525F2D6B8009BF26B /* Recoil+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F35C425F2D6B8009BF26B /* Recoil+SwiftUI.swift */; };
 		B2CF0B0925DD80B400F57FE4 /* RecoilDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B0825DD80B400F57FE4 /* RecoilDemoApp.swift */; };
 		B2CF0B0B25DD80B400F57FE4 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B0A25DD80B400F57FE4 /* LibraryView.swift */; };
 		B2CF0B0D25DD80B500F57FE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CF0B0C25DD80B500F57FE4 /* Assets.xcassets */; };
 		B2CF0B1025DD80B500F57FE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CF0B0F25DD80B500F57FE4 /* Preview Assets.xcassets */; };
 		B2CF0B1C25DD80B500F57FE4 /* RecoilDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B1B25DD80B500F57FE4 /* RecoilDemoTests.swift */; };
 		B2CF0B2725DD80B500F57FE4 /* RecoilDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF0B2625DD80B500F57FE4 /* RecoilDemoUITests.swift */; };
-		B2CF0B3D25DD815200F57FE4 /* Recoil in Frameworks */ = {isa = PBXBuildFile; productRef = B2CF0B3C25DD815200F57FE4 /* Recoil */; };
+		D23692B126761A5D007FE818 /* Autocore in Frameworks */ = {isa = PBXBuildFile; productRef = D23692B026761A5D007FE818 /* Autocore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +36,6 @@
 
 /* Begin PBXFileReference section */
 		B27F35BA25F2A87A009BF26B /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		B27F35C425F2D6B8009BF26B /* Recoil+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recoil+SwiftUI.swift"; sourceTree = "<group>"; };
 		B2CF0B0525DD80B400F57FE4 /* RecoilDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecoilDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF0B0825DD80B400F57FE4 /* RecoilDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoilDemoApp.swift; sourceTree = "<group>"; };
 		B2CF0B0A25DD80B400F57FE4 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
@@ -51,7 +49,6 @@
 		B2CF0B2225DD80B500F57FE4 /* RecoilDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecoilDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF0B2625DD80B500F57FE4 /* RecoilDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoilDemoUITests.swift; sourceTree = "<group>"; };
 		B2CF0B2825DD80B500F57FE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B2CF0B3725DD814600F57FE4 /* Recoil */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Recoil; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2CF0B3D25DD815200F57FE4 /* Recoil in Frameworks */,
+				D23692B126761A5D007FE818 /* Autocore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +80,6 @@
 		B2CF0AFC25DD80B400F57FE4 = {
 			isa = PBXGroup;
 			children = (
-				B2CF0B3725DD814600F57FE4 /* Recoil */,
 				B2CF0B0725DD80B400F57FE4 /* RecoilDemo */,
 				B2CF0B1A25DD80B500F57FE4 /* RecoilDemoTests */,
 				B2CF0B2525DD80B500F57FE4 /* RecoilDemoUITests */,
@@ -106,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				B27F35BA25F2A87A009BF26B /* State.swift */,
-				B27F35C425F2D6B8009BF26B /* Recoil+SwiftUI.swift */,
 				B2CF0B0825DD80B400F57FE4 /* RecoilDemoApp.swift */,
 				B2CF0B0A25DD80B400F57FE4 /* LibraryView.swift */,
 				B2CF0B0C25DD80B500F57FE4 /* Assets.xcassets */,
@@ -167,7 +162,7 @@
 			);
 			name = RecoilDemo;
 			packageProductDependencies = (
-				B2CF0B3C25DD815200F57FE4 /* Recoil */,
+				D23692B026761A5D007FE818 /* Autocore */,
 			);
 			productName = RecoilDemo;
 			productReference = B2CF0B0525DD80B400F57FE4 /* RecoilDemo.app */;
@@ -240,6 +235,9 @@
 				Base,
 			);
 			mainGroup = B2CF0AFC25DD80B400F57FE4;
+			packageReferences = (
+				D23692AF26761A5D007FE818 /* XCRemoteSwiftPackageReference "Autocore" */,
+			);
 			productRefGroup = B2CF0B0625DD80B400F57FE4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -283,7 +281,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2CF0B0B25DD80B400F57FE4 /* LibraryView.swift in Sources */,
-				B27F35C525F2D6B8009BF26B /* Recoil+SwiftUI.swift in Sources */,
 				B2CF0B0925DD80B400F57FE4 /* RecoilDemoApp.swift in Sources */,
 				B27F35BB25F2A87A009BF26B /* State.swift in Sources */,
 			);
@@ -445,7 +442,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RecoilDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = EB87WTFWD5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RecoilDemo/Info.plist;
@@ -469,7 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RecoilDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = EB87WTFWD5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RecoilDemo/Info.plist;
@@ -609,10 +606,22 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D23692AF26761A5D007FE818 /* XCRemoteSwiftPackageReference "Autocore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Unicore/Autocore.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		B2CF0B3C25DD815200F57FE4 /* Recoil */ = {
+		D23692B026761A5D007FE818 /* Autocore */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Recoil;
+			package = D23692AF26761A5D007FE818 /* XCRemoteSwiftPackageReference "Autocore" */;
+			productName = Autocore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

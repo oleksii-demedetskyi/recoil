@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Autocore",
+        "repositoryURL": "https://github.com/Unicore/Autocore.git",
+        "state": {
+          "branch": null,
+          "revision": "73b3253cb8b7b43ae0b1d264b092cd8afff4fcc1",
+          "version": "0.0.4"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

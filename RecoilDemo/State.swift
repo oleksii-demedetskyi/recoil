@@ -1,7 +1,8 @@
 import SwiftUI
-import Recoil
+import Autocore
 
 struct LibraryState: DynamicProperty {
+    
     struct Book: Codable {
         let id: Int
         var name: String = "Unknown"
@@ -9,22 +10,22 @@ struct LibraryState: DynamicProperty {
         var isFavorite: Bool = false
     }
     
-    struct AllBooks: FamilyProtocol {
+    struct AllBooks: FamilyDefinition {
         static func initial(id: Int) -> Book { Book(id: id) }
     }
     
-    struct AllBooksIds: AtomProtocol {
+    struct AllBooksIds: AtomDefinition {
         static let initial: [Int] = []
     }
     
-    enum Category: String, Codable, AtomProtocol {
+    enum Category: String, Codable, AtomDefinition {
         static var initial = Self.all
         
         case all
         case favorites
     }
     
-    struct VisibleBooks: DerivedProtocol {
+    struct VisibleBooks: DerivedValueDefinition {
         static func derive(from state: ReadableState) -> [Int] {
             switch state[Category] {
                 case .all: return state[AllBooksIds]
@@ -58,15 +59,15 @@ struct BookState: Identifiable, DynamicProperty {
 }
 
 struct NewBookState: DynamicProperty {
-    struct Author: AtomProtocol {
+    struct Author: AtomDefinition {
         static let initial = ""
     }
     
-    struct Name: AtomProtocol {
+    struct Name: AtomDefinition {
         static let initial = ""
     }
     
-    private struct NextBookId: AtomProtocol {
+    private struct NextBookId: AtomDefinition {
         static let initial = 0
     }
     
